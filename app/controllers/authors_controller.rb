@@ -1,4 +1,8 @@
 class AuthorsController < ApplicationController
+  def index
+    @authors= Author.all
+  end
+
   def show
     @author = Author.find(params[:id])
   end
@@ -9,8 +13,13 @@ class AuthorsController < ApplicationController
 
   def create
     @author = Author.create(author_params)
-
-    redirect_to author_path(@author)
+    if @author.valid?
+      @author.save
+      redirect_to author_path(@author)
+    else
+      puts "INVALID POST"
+      render :'authors/new'
+    end
   end
 
   private
