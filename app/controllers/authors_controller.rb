@@ -8,9 +8,19 @@ class AuthorsController < ApplicationController
   end
 
   def create
-    @author = Author.create(author_params)
+    @author = Author.new(author_params)
+    if @author.valid?
+      # persist params to database using @instance.save or just #save instance method
+      @author.save
+      # send user (redirects per rspec) to the show page?
+      redirect_to author_path(@author)
+    else
+      # render the new page for author#new with @author.errors
+      render :new
 
-    redirect_to author_path(@author)
+    end
+
+
   end
 
   private
