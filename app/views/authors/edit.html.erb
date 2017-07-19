@@ -1,0 +1,28 @@
+<%= form_tag author_path(@author), method: :put do %>
+<% if @author.errors.any? %>
+  <div id="error_explanation">
+    <h2>There were some errors:</h2>
+    <ul>
+      <% @author.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+  <div class="field <%= 'field_with_errors' if @author.error[:name].any? %>">
+    <%= label_tag "name", "Name" %>
+    <%= text_field_tag "name" %>
+  </div>
+
+  <div class="field <%= 'field_with_errors' if @author.error[:email].any? %>">
+    <%= label_tag "email", "Email" %>
+    <%= text_field_tag "email" %>
+  </div>
+
+  <div class="field <%= 'field_with_errors' if @author.error[:phone_number].any? %>">
+    <%= label_tag "phone_number", "Phone Number" %>
+    <%= text_field_tag "phone_number" %>
+  </div>
+
+  <%= submit_tag "Create" %>
+<% end %>
