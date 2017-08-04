@@ -1,18 +1,22 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    render :show
   end
 
   def edit
     @post = Post.find(params[:id])
+    render :edit
   end
 
   def update
     @post = Post.find(params[:id])
-
     @post.update(post_params)
-
-    redirect_to post_path(@post)
+    if !@post.valid?
+      render :edit
+    else
+      redirect_to post_path(@post)
+    end
   end
 
   private

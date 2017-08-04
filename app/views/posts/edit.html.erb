@@ -1,25 +1,73 @@
 <h2>Editing "<%= @post.title %>"</h2>
-<%= form_tag post_path(@post), method: "patch" do %>
-  <div class="field">
-    <%= label_tag "title", "Title" %>
-    <%= text_field_tag "title", @post.title %>
-  </div>
 
-  <div class="field">
-    <%= label_tag "category", "Category" %>
-    <p>Must be either "Fiction" or "Non-Fiction".</p>
-    <%= text_field_tag "category", @post.category %>
-    <p>
-      Please type carefully as our top scientists are working around the clock to
-      enable state-of-the-art dropdown technology for this form field.
-    </p>
-  </div>
 
-  <div class="field">
-    <%= label_tag "content", "Content" %>
-    <br />
-    <%= text_area_tag "content", @post.content %>
-  </div>
-  <%= submit_tag "Update" %>
+<% if !@post.errors.full_messages.empty? %>
+<div id = "error_explanation" >
+  <ul>
+  <% @post.errors.full_messages.each do |error_message| %>
+    <li><%= error_message %></li>
+  <% end %>
+  </ul>
+</div>
 <% end %>
 
+
+<%= form_tag post_path(@post), method: "patch" do %>
+
+  <%if @post.errors[:title].any?%>
+    <div class="field_with_errors">
+      <%= label_tag "title", "Title" %>
+      <%= text_field_tag "title", @post.title %>
+    </div>
+<%else%>
+    <div class="field">
+      <%= label_tag "title", "Title" %>
+      <%= text_field_tag "title", @post.title %>
+    </div>
+
+  <% end %>
+
+  <% if @post.errors[:category].any?%>
+    <div class="field_with_errors">
+      <%= label_tag "category", "Category" %>
+      <p>Must be either "Fiction" or "Non-Fiction".</p>
+      <%= text_field_tag "category", @post.category %>
+      <p>
+        Please type carefully as our top scientists are working around the clock to
+        enable state-of-the-art dropdown technology for this form field.
+      </p>
+    </div>
+
+<%else%>
+
+      <%= label_tag "category", "Category" %>
+    <div class="field">
+      <p>Must be either "Fiction" or "Non-Fiction".</p>
+      <%= text_field_tag "category", @post.category %>
+      <p>
+        Please type carefully as our top scientists are working around the clock to
+        enable state-of-the-art dropdown technology for this form field.
+      </p>
+    </div>
+
+  <% end %>
+
+  <% if @post.errors[:content].any? %>
+    <div class="field_with_errors">
+      <%= label_tag "content", "Content" %>
+      <br />
+      <%= text_area_tag "content", @post.content %>
+    </div>
+    <%= submit_tag "Update" %>
+
+<%else%>
+
+    <div class="field">
+      <%= label_tag "content", "Content" %>
+      <br />
+      <%= text_area_tag "content", @post.content %>
+    </div>
+    <%= submit_tag "Update" %>
+
+  <% end %>
+  <% end %>
