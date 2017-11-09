@@ -1,4 +1,4 @@
-<h2>Create an Author</h2>
+<h2>Edit <%= @author.name %></h2>
 <%= form_tag authors_path, method: "post" do %>
 
   <% if @author.errors.any? %>
@@ -14,16 +14,19 @@
 
   <div class="field <%= 'field_with_errors' if @author.errors[:name].any? %>">
     <%= label_tag "name", "Name" %>
+    <p>Name can not be blank</p>
     <%= text_field_tag "name", @author.name %>
   </div>
 
   <div class="field <%= 'field_with_errors' if @author.errors[:email].any? %>">
     <%= label_tag "email", "Email" %>
+    <p>Email address must be unique</p>
     <%= text_field_tag "email", @author.email %>
   </div>
 
   <div class="field <%= 'field_with_errors' if @author.errors[:phone_number].any? %>">
     <%= label_tag "phone_number", "Phone Number" %>
+    <p>Phone number must be 10 digits exactly</p>
     <%= text_field_tag "phone_number", @author.phone_number %>
   </div>
 
