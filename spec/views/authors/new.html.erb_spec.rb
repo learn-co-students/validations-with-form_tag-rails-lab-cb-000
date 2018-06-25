@@ -24,8 +24,8 @@ RSpec.describe "authors/new", type: :feature do
       )
 
       visit new_author_path
-      fill_in "Email", with: invalid_attributes[:email]
-      fill_in "Phone Number", with: invalid_attributes[:phone_number]
+      fill_in "email", with: invalid_attributes[:email]
+      fill_in "phone_number", with: invalid_attributes[:phone_number]
       click_button "Create"
     end
 
