@@ -1,0 +1,9 @@
+<h1>Author Listing Form</h1>
+
+<div>
+<ul>
+  <% @authors.each do |author| %>
+    <li><%= link_to author.name, author_path(author) %>  email:<%= author.email %>  Tel:<%= author.phone_number %></li>
+  <% end %>
+</ul>
+</div>
