@@ -14,7 +14,7 @@ RSpec.describe PostsController do
 
   describe "showing a post" do
     it "shows a post" do
-      get :show, id: @article.id
+      get :show, params: { id: @article.id }
       expect(found).to eq(@article)
     end
   end
@@ -34,7 +34,9 @@ RSpec.describe PostsController do
     end
 
     it "redirects to show page" do
-      patch :update, new_attributes
+      patch :update, params: { id: @article.id,
+      title: "Fifteen Ways to Transcend Corporeal Form", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus, nulla vel condimentum ornare, arcu lorem hendrerit purus, ac sagittis ipsum nisl nec erat. Morbi porta sollicitudin leo, eu cursus libero posuere ac. Sed ac ultricies ante. Donec nec nulla ipsum. Nunc eleifend, ligula ut volutpat.",
+      category: "Fiction" }
       expect(response).to redirect_to(post_path(@article))
     end
   end
@@ -71,9 +73,12 @@ RSpec.describe PostsController do
     end
 
     it "renders the form again" do
-      patch :update, bad_attributes.merge(id: @article.id)
+      patch :update, params: {
+              id: @article.id,
+              title: nil,
+              content: "too short",
+              category: "Speculative Fiction" }#  bad_attributes.merge(id: @article.id)
       expect(response).to render_template(:edit)
     end
   end
 end
-
