@@ -1,20 +1,23 @@
+require 'pry'
+
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
   end
 
   def edit
+    # binding.pry
     @post = Post.find(params[:id])
   end
 
   def update
     @post = Post.find(params[:id])
-    if Post.new(post_params).valid?
-      @post.update(post_params)
+    @post.update(post_params)
+    if @post.valid?
+      @post.save
       redirect_to post_path(@post)
     else
-        @post = Post.new(post_params)
-        render :edit
+      render :edit
     end
   end
 
