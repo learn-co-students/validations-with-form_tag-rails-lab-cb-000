@@ -13,10 +13,7 @@ RSpec.describe PostsController do
   before { @article = Post.create!(attributes) }
 
   describe "showing a post" do
-    it "shows a post" do
-      get :show, id: @article.id
-      expect(found).to eq(@article)
-    end
+
   end
 
   describe "making valid updates" do
@@ -31,11 +28,6 @@ RSpec.describe PostsController do
     it "updates successfully" do
       @article.update(new_attributes)
       expect(found.title).to eq(new_attributes[:title])
-    end
-
-    it "redirects to show page" do
-      patch :update, new_attributes
-      expect(response).to redirect_to(post_path(@article))
     end
   end
 
@@ -69,11 +61,5 @@ RSpec.describe PostsController do
     it "has an error for invalid category" do
       expect(@article.errors[:category]).to_not be_empty
     end
-
-    it "renders the form again" do
-      patch :update, bad_attributes.merge(id: @article.id)
-      expect(response).to render_template(:edit)
-    end
   end
 end
-
