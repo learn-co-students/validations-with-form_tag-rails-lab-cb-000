@@ -1,10 +1,28 @@
 <h2>Editing "<%= @post.title %>"</h2>
+
 <%= form_tag post_path(@post), method: "patch" do %>
+
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h3>There were some errors:</h3>
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  
+        
+    <div class="field<%=' field_with_errors' if @post.errors[:title].any? %>">
+      
   <div class="field">
     <%= label_tag "title", "Title" %>
     <%= text_field_tag "title", @post.title %>
   </div>
 
+    <div class="field<%=' field_with_errors' if @post.errors[:category].any? %>">
   <div class="field">
     <%= label_tag "category", "Category" %>
     <p>Must be either "Fiction" or "Non-Fiction".</p>
@@ -15,6 +33,9 @@
     </p>
   </div>
 
+  
+    <div class="field<%=' field_with_errors' if @post.errors[:content].any? %>">
+
   <div class="field">
     <%= label_tag "content", "Content" %>
     <br />
@@ -22,4 +43,3 @@
   </div>
   <%= submit_tag "Update" %>
 <% end %>
-
